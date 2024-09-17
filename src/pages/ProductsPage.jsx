@@ -1,9 +1,13 @@
+import { useProducts } from '../context/ProductContext'
+
 const ProductsPage = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+    const products = useProducts()
+    console.log(products)
+    return (
+        <div>
+
+        </div>
+    )
 }
 
 export default ProductsPage
