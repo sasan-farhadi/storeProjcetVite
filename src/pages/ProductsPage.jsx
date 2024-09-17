@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import Loader from "../components/Loader"
 import { useProducts } from '../context/ProductContext'
@@ -8,17 +8,29 @@ import { ImSearch } from 'react-icons/im'
 import { FaListUl } from 'react-icons/fa'
 const ProductsPage = () => {
     const products = useProducts()
+
+    const [displyed, setDisplayed] = useState([])
     const [search, setSearch] = useState("")
+    const [query, setQuery] = useState({})
+
+    useEffect(() => {
+        setDisplayed(products)
+    }, [products])
+
+
+    useEffect(() => {
+        console.log(query)
+    }, [query])
 
     const searchHandler = () => {
-        console.log("first")
+        setQuery(query => ({ ...query, search }))
     }
 
     const categoryHandler = (e) => {
         const { tagName } = e.target
-        const category = event.target.innerText.toLowerCase()
+        const category = e.target.innerText.toLowerCase()
         if (tagName !== "LI") return
-        console.log(category)
+        setQuery(query => ({ ...query, category }))
     }
     return (
         <>
@@ -31,13 +43,13 @@ const ProductsPage = () => {
             </div>
             <div className={styles.container}>
                 <div className={styles.products}>
-                    {!products.length && <Loader />}
-                    {products.map(p => (<Card key={p.id} data={p} />))}
+                    {!displyed.length && <Loader />}
+                    {displyed.map(p => (<Card key={p.id} data={p} />))}
                 </div>
                 <div>
                     <div>
                         <FaListUl />
-                        <p></p>
+                        <p>Categories</p>
                     </div>
                     <ul onClick={categoryHandler}>
                         <li>All</li>
