@@ -1,5 +1,8 @@
+//USE REACT ICONS 
 import { TbListDetails } from "react-icons/tb";
 import { TbShoppingBagCheck } from "react-icons/tb";
+//USE REACT ICONS
+
 import { Link } from 'react-router-dom'
 import { shortenText } from "../helpers/helper";
 
